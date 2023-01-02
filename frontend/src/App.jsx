@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import GenImage from "./components/GenImage";
+import Header from "./components/Header";
 
 const App = () => {
 
@@ -30,9 +31,13 @@ const App = () => {
 
   return (
     <>
-    <h1 className="title">{message}</h1>
+    
     <div className="columns">
-      <GenImage />
+      <div className="column">
+        <Header title={message}/>
+        <GenImage />
+      </div>
+      
     </div>
     </>
     

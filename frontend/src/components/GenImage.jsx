@@ -7,13 +7,16 @@ const GenImage = () => {
     const [guidanceScale, setGuidanceScale] = useState(7.5);
     const [numInfSteps, setNumInfSteps] = useState(10);
     const [errorMessage, setErrorMessage] = useState("");
-    const [img, setImg] = useState();
+    const [img, setImg] = useState(null);
+    const [promptImg, setPromptImg] = useState(null);
+    const [loadingImg, setLoadingImg] = useState(false);
 
     const cleanFormData = () => {
         setPrompt("");
         setSeed(null);
         setGuidanceScale(7.5);
-        setNumInfSteps(50);
+        setNumInfSteps(5);
+        setLoadingImg(false);
     }
 
     // create a function that handles creating the lead
@@ -24,6 +27,8 @@ const GenImage = () => {
             headers: {"Content-Type": "application/json"}, 
             
         };
+
+        setLoadingImg(true);
         // body: JSON.stringify(`prompt=${prompt}&num_inference_steps=${numInfSteps}&guidance_scale=${guidanceScale}&seed=`)
         const response = await fetch(`/api/generate/?prompt=${prompt}&num_inference_steps=${numInfSteps}&guidance_scale=${guidanceScale}`, requestOptions);
         
@@ -33,21 +38,24 @@ const GenImage = () => {
             const imageBlob = await response.blob();
             const imageObjectURL = URL.createObjectURL(imageBlob);
             setImg(imageObjectURL);
+            setPromptImg(prompt);
             cleanFormData();
         }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setImg(null);
+        setPromptImg(null);
         handleGenerateImage();
     }
 
     return (
         <>
-        <div className="columns">
+        <div className="columns is-vcentered">
             <div className="column">
                 <form className="box" onSubmit={handleSubmit}>
-                    <h1 className="title has-text-centered">Generate Image with Stable Diffuser</h1>
+                    <h1 className="title has-text-centered is-4">Generate Image with Stable Diffuser</h1>
                     <div className="field">
                         <label className="label">Prompt</label>
                         <div className="control">
@@ -103,8 +111,18 @@ const GenImage = () => {
                     <button className="button is-primary" type="submit">Generate Image</button>
                 </form>
             </div>
-            <div column>
+            <div className="column">
+            { img ? ( 
+            <figure>
                 <img src={img} alt="genimage" />
+                <figcaption>{promptImg}</figcaption>
+            </figure> ) 
+                  : <></>
+            }
+            { loadingImg ? (
+                <progress className="progress is-small is-primary" max="100">Loading</progress>
+            ) : <></>
+            }
             </div>
         </div>
         </>
