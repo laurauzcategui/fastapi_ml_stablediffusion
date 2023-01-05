@@ -154,7 +154,9 @@ Fill the parameters as follows:
 
 You should be able to see your frontend like this one below: 
 
-<center><img src="./assets/demo.png" alt="Demo example" width=500 height=300 /></center>
+<p align="center">
+<img src="./assets/demo.png" alt="Demo example" width=700 height=400 />
+</p>
 
 ## Resources I've used to build the project
 

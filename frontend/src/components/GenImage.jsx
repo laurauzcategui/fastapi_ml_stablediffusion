@@ -3,7 +3,7 @@ import ErrorMessage from "./ErrorMessage";
 
 const GenImage = () => {
     const [prompt, setPrompt] = useState("");
-    const [seed, setSeed] = useState(null);
+    const [seed, setSeed] = useState(42);
     const [guidanceScale, setGuidanceScale] = useState(7.5);
     const [numInfSteps, setNumInfSteps] = useState(10);
     const [errorMessage, setErrorMessage] = useState("");
@@ -13,10 +13,11 @@ const GenImage = () => {
 
     const cleanFormData = () => {
         setPrompt("");
-        setSeed(null);
+        setSeed(42);
         setGuidanceScale(7.5);
         setNumInfSteps(5);
         setLoadingImg(false);
+        setErrorMessage("");
     }
 
     // create a function that handles creating the lead
@@ -30,7 +31,7 @@ const GenImage = () => {
 
         setLoadingImg(true);
         // body: JSON.stringify(`prompt=${prompt}&num_inference_steps=${numInfSteps}&guidance_scale=${guidanceScale}&seed=`)
-        const response = await fetch(`/api/generate/?prompt=${prompt}&num_inference_steps=${numInfSteps}&guidance_scale=${guidanceScale}`, requestOptions);
+        const response = await fetch(`/api/generate/?prompt=${prompt}&num_inference_steps=${numInfSteps}&guidance_scale=${guidanceScale}&seed=${seed}`, requestOptions);
         
         if (!response.ok){
             setErrorMessage("Ooops! Something went wrong generating the image");
@@ -105,7 +106,6 @@ const GenImage = () => {
                             /> 
                         </div>
                     </div>            
-
                         <ErrorMessage message={errorMessage}/>
                     <br /> 
                     <button className="button is-primary" type="submit">Generate Image</button>
