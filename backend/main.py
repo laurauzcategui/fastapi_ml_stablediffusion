@@ -27,21 +27,3 @@ async def generate_image(imgPromptCreate: _schemas.ImageCreate = _fapi.Depends()
     memory_stream.seek(0)
     return StreamingResponse(memory_stream, media_type="image/png")
 
-
-@app.get("/generate/")
-def generate_image(
-    prompt: str, 
-    seed: int | None = None, 
-    num_inference_steps: int = 10, 
-    guidance_scale: float = 7.5): 
-    image = _services.obtain_image(
-        prompt, 
-        num_inference_steps=num_inference_steps, 
-        seed=seed, 
-        guidance_scale=guidance_scale)
-
-    memory_stream = io.BytesIO()
-    image.save(memory_stream, format="PNG")
-    memory_stream.seek(0)
-    return StreamingResponse(memory_stream, media_type="image/png")
-
