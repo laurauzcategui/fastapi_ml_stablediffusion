@@ -9,7 +9,7 @@ Let's dive in by introducing what is the project about and why I have done it.
 
 ## 1. What is this project about? 
 
-On this project you can checkout how you can build an basic React Application using FastAPI as backend to be able to generate images with Stable Difussion using the Diffusers library from Hugging Face.
+On this project you can checkout how you can build an basic React Application using FastAPI as backend to be able to generate images with Stable Diffusion using the Diffusers library from Hugging Face.
 
 ## 2. Why I did built it?
 
