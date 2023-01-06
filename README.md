@@ -2,7 +2,7 @@
 
 Author: [Laura Uzcategui](https://github.com/laurauzcategui)
 
-Hello, I would like to share with you this small project that involves creating an Stable Diffussion App with React and FastAPI :grin:. 
+Hello, I would like to share with you this small project that involves creating an Stable Diffusion App with React and FastAPI :grin:. 
 
 
 Let's dive in by introducing what is the project about and why I have done it. 
